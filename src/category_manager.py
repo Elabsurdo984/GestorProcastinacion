@@ -1,14 +1,24 @@
+"""Módulo para la gestión de categorías de tareas."""
+from typing import Set
 from collections import defaultdict
 from datetime import datetime
 
 class CategoryManager:
-    def __init__(self):
-        self.categories = set(["General"])  # Empezamos con categoría por defecto
+    """Clase que gestiona las categorías disponibles para las tareas."""
+
+    def __init__(self) -> None:
+        """Inicializa el gestor de categorías con una categoría por defecto."""
+        self.categories: Set[str] = {"General"}
         
     def add_category(self, category_name: str) -> None:
         """
-        Añade una nueva categoría si no existe.
-        Lanza ValueError si la categoría ya existe.
+        Añade una nueva categoría.
+
+        Args:
+            category_name: Nombre de la nueva categoría
+
+        Raises:
+            ValueError: Si la categoría ya existe
         """
         if category_name in self.categories:
             raise ValueError(f"La categoría '{category_name}' ya existe")
@@ -17,7 +27,12 @@ class CategoryManager:
     def remove_category(self, category_name: str) -> None:
         """
         Elimina una categoría existente.
-        Lanza ValueError si la categoría no existe o es la categoría 'General'.
+
+        Args:
+            category_name: Nombre de la categoría a eliminar
+
+        Raises:
+            ValueError: Si la categoría no existe o es la categoría General
         """
         if category_name == "General":
             raise ValueError("No se puede eliminar la categoría General")
@@ -25,8 +40,13 @@ class CategoryManager:
             raise ValueError(f"La categoría '{category_name}' no existe")
         self.categories.remove(category_name)
         
-    def get_categories(self) -> set:
-        """Devuelve el conjunto de categorías disponibles"""
+    def get_categories(self) -> Set[str]:
+        """
+        Obtiene todas las categorías disponibles.
+
+        Returns:
+            Set[str]: Conjunto con todas las categorías
+        """
         return self.categories.copy()
 
     def get_category_stats(self, tasks):
