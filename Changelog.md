@@ -1,6 +1,18 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.1.0] - 2025-08-19
+### Añadido
+- Sistema de prioridades para tareas
+  - Niveles: Alta, Media, Baja
+  - Código de colores para diferentes prioridades
+  - Ordenamiento por prioridad
+  - Filtrado de tareas por prioridad
+- Mejoras en la interfaz de consola
+  - Colores para mejor visualización
+  - Indicadores visuales de prioridad
+- Alertas especiales para tareas de alta prioridad
+
 ## [1.0.0] - 2025-08-19
 ### Añadido
 - Sistema básico de gestión de tareas
