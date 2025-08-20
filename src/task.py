@@ -1,57 +1,32 @@
 from enum import Enum
-from datetime import datetime
-import json
+from datetime import datetime, timedelta
 
 class Priority(Enum):
-    BAJA = 1
-    MEDIA = 2
-    ALTA = 3
-
-    @staticmethod
-    def from_string(priority_str):
-        priority_map = {
-            'baja': Priority.BAJA,
-            'media': Priority.MEDIA,
-            'alta': Priority.ALTA
-        }
-        return priority_map.get(priority_str.lower(), Priority.MEDIA)
+    ALTA = "Alta"
+    MEDIA = "Media"
+    BAJA = "Baja"
 
 class Task:
-    def __init__(self, name, description, deadline, priority=Priority.MEDIA, category="General"):
+    def __init__(self, name: str, description: str, deadline: datetime, priority: Priority):
+        # Permitimos fechas del mismo día, solo rechazamos fechas anteriores
+        if deadline.date() < datetime.now().date():
+            raise ValueError("La fecha límite no puede estar en el pasado")
+            
         self.name = name
         self.description = description
         self.deadline = deadline
         self.priority = priority
-        self.category = category
-        self.last_progress = None
-        self.completed = False
-
-    def to_dict(self):
-        """Convierte la tarea a un diccionario para serialización JSON"""
-        return {
-            'name': self.name,
-            'description': self.description,
-            'deadline': self.deadline,
-            'priority': self.priority.name,
-            'category': self.category,
-            'last_progress': self.last_progress.isoformat() if self.last_progress else None,
-            'completed': self.completed
-        }
-
-    @staticmethod
-    def from_dict(data):
-        """Crea una tarea desde un diccionario"""
-        task = Task(
-            data['name'], 
-            data['description'], 
-            data['deadline'],
-            Priority.from_string(data.get('priority', 'MEDIA')),
-            data.get('category', 'General')
-        )
-        task.last_progress = datetime.fromisoformat(data['last_progress']) if data['last_progress'] else None
-        task.completed = data['completed']
-        return task
-
-    def update_progress(self):
-        """Registra un nuevo progreso en la tarea"""
-        self.last_progress = datetime.now()
+        self.progress = 0
+        self.last_update = datetime.now()
+        
+    def update_progress(self, new_progress: int) -> None:
+        """Actualiza el progreso de la tarea y la fecha de última actualización"""
+        if not 0 <= new_progress <= 100:
+            raise ValueError("El progreso debe estar entre 0 y 100")
+        self.progress = new_progress
+        self.last_update = datetime.now()
+        
+    def is_procrastinating(self) -> bool:
+        """Comprueba si ha pasado más de 24 horas sin actualizar la tarea"""
+        time_since_update = datetime.now() - self.last_update
+        return time_since_update > timedelta(hours=24)

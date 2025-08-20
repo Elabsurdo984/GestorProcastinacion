@@ -61,9 +61,18 @@ python main.py
 ```
 GestorProcastinacion/
 │
-├── main.py         # Punto de entrada y lógica principal
-├── task.py         # Clase Task y enum Priority
-├── storage.py      # Manejo de persistencia de datos
+├── src/
+│   ├── main.py         # Punto de entrada y lógica principal
+│   ├── task.py         # Clase Task y enum Priority
+│   ├── storage.py      # Manejo de persistencia de datos
+│   └── category_manager.py # Gestión de categorías
+│
+├── tests/
+│   ├── test_task.py           # Pruebas de tareas
+│   ├── test_storage.py        # Pruebas de almacenamiento
+│   ├── test_category_manager.py # Pruebas de categorías
+│   └── test_integration/      # Pruebas de integración
+│
 ├── tasks.json      # Archivo de almacenamiento de tareas
 ├── README.md       # Este archivo
 └── CHANGELOG.md    # Historial de cambios
@@ -72,11 +81,13 @@ GestorProcastinacion/
 ## ⚙️ Requisitos técnicos
 - Python 3.13
 - colorama (para la interfaz con colores)
+- unittest (incluido en Python, para ejecutar pruebas)
 
 ## 🔍 Notas de uso
 - Para mejor visualización, se recomienda usar Windows Terminal
 - En caso de problemas con emojis, el programa se adaptará automáticamente
 - Las tareas se guardan automáticamente después de cada modificación
+- Para ejecutar las pruebas: `python -m unittest discover -v`
 
 ## 🤝 Contribuciones
 
@@ -89,3 +100,7 @@ Las contribuciones son bienvenidas. Por favor, abre un issue primero para discut
 ## 📋 Versiones
 - v1.0.0: Versión inicial con funcionalidades básicas
 - v1.1.0: Añadido sistema de prioridades y mejoras visuales
+- v1.2.0: Sistema de categorización y estadísticas
+- v1.2.1: Funcionalidad para marcar tareas como completadas
+- v1.2.2: Nueva organización de carpetas
+- v1.2.3: Sistema completo de pruebas y validaciones

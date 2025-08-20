@@ -3,16 +3,31 @@ from datetime import datetime
 
 class CategoryManager:
     def __init__(self):
-        self.categories = set(["General"])  # Categoría por defecto
-
-    def add_category(self, category_name):
-        """Añade una nueva categoría"""
+        self.categories = set(["General"])  # Empezamos con categoría por defecto
+        
+    def add_category(self, category_name: str) -> None:
+        """
+        Añade una nueva categoría si no existe.
+        Lanza ValueError si la categoría ya existe.
+        """
+        if category_name in self.categories:
+            raise ValueError(f"La categoría '{category_name}' ya existe")
         self.categories.add(category_name)
-        return True
-
-    def get_categories(self):
-        """Retorna todas las categorías disponibles"""
-        return sorted(list(self.categories))
+        
+    def remove_category(self, category_name: str) -> None:
+        """
+        Elimina una categoría existente.
+        Lanza ValueError si la categoría no existe o es la categoría 'General'.
+        """
+        if category_name == "General":
+            raise ValueError("No se puede eliminar la categoría General")
+        if category_name not in self.categories:
+            raise ValueError(f"La categoría '{category_name}' no existe")
+        self.categories.remove(category_name)
+        
+    def get_categories(self) -> set:
+        """Devuelve el conjunto de categorías disponibles"""
+        return self.categories.copy()
 
     def get_category_stats(self, tasks):
         """Genera estadísticas por categoría"""

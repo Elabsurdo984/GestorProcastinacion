@@ -1,6 +1,23 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.2.3] - 2025-08-20
+### Añadido
+- Sistema completo de pruebas unitarias y de integración
+  - Tests para gestión de tareas
+  - Tests para sistema de almacenamiento
+  - Tests para gestor de categorías
+  - Tests de integración para flujos completos
+- Mejoras en la validación de datos
+  - Validación de fechas límite
+  - Protección contra categorías duplicadas
+  - Validación de progreso de tareas
+
+### Modificado
+- Refactorización del sistema de almacenamiento
+- Mejora en la gestión de categorías
+- Optimización del manejo de fechas límite
+
 ## [1.2.2] - 2025-08-20
 ### Añadido
 - Nueva organizacion de carpetas para el codigo
