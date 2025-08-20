@@ -1,6 +1,21 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.2.0] - 2025-08-19
+### Añadido
+- Sistema de categorización de tareas
+  - Creación de categorías personalizadas
+  - Categoría "General" por defecto
+  - Filtrado de tareas por categoría
+- Estadísticas detalladas por categoría
+  - Total de tareas
+  - Tareas completadas y pendientes
+  - Tareas de alta prioridad
+  - Tareas procrastinadas
+- Mejoras en la interfaz de usuario
+  - Nuevo menú para categorías
+  - Visualización de estadísticas
+
 ## [1.1.0] - 2025-08-19
 ### Añadido
 - Sistema de prioridades para tareas

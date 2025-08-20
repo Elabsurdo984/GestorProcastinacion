@@ -4,6 +4,7 @@ import sys
 from task import Task, Priority
 from storage import TaskStorage
 from colorama import init, Fore, Style
+from category_manager import CategoryManager
 
 init()  # Inicializar colorama
 
@@ -11,24 +12,48 @@ class ProcrastinationManager:
     def __init__(self):
         self.storage = TaskStorage()
         self.tasks = self.storage.load_tasks()
+        self.category_manager = CategoryManager()
         self.procrastination_threshold = timedelta(hours=24)
+        
+        # Cargar categorías existentes de las tareas
+        for task in self.tasks:
+            self.category_manager.add_category(task.category)
 
     def add_task(self):
-        """Añade una nueva tarea con prioridad"""
+        """Añade una nueva tarea con categoría"""
         name = input("Nombre de la tarea: ")
         description = input("Descripción: ")
         deadline = input("Fecha límite (YYYY-MM-DD): ")
         
+        # Mostrar prioridades
         print("\nPrioridad:")
         print("1. Baja")
         print("2. Media")
         print("3. Alta")
         priority_choice = input("Seleccione la prioridad (1-3) [2]: ").strip() or "2"
         
+        # Mostrar categorías
+        categories = self.category_manager.get_categories()
+        print("\nCategorías disponibles:")
+        for i, cat in enumerate(categories, 1):
+            print(f"{i}. {cat}")
+        print(f"{len(categories) + 1}. Nueva categoría")
+        
+        cat_choice = input("\nSeleccione una categoría o cree una nueva: ")
+        
+        try:
+            if int(cat_choice) == len(categories) + 1:
+                category = input("Nombre de la nueva categoría: ")
+                self.category_manager.add_category(category)
+            else:
+                category = categories[int(cat_choice) - 1]
+        except (ValueError, IndexError):
+            category = "General"
+            
         priority_map = {"1": Priority.BAJA, "2": Priority.MEDIA, "3": Priority.ALTA}
         priority = priority_map.get(priority_choice, Priority.MEDIA)
         
-        task = Task(name, description, deadline, priority)
+        task = Task(name, description, deadline, priority, category)
         self.tasks.append(task)
         self.storage.save_tasks(self.tasks)
         print(f"{Fore.GREEN}¡Tarea añadida con éxito!{Style.RESET_ALL}")
@@ -101,6 +126,19 @@ class ProcrastinationManager:
         except ValueError:
             print(f"{Fore.RED}Error: Por favor ingrese un número válido{Style.RESET_ALL}")
 
+    def show_category_stats(self):
+        """Muestra estadísticas por categoría"""
+        stats = self.category_manager.get_category_stats(self.tasks)
+        
+        print("\n=== Estadísticas por Categoría ===")
+        for category, data in stats.items():
+            print(f"\n{Fore.CYAN}{category}:{Style.RESET_ALL}")
+            print(f"  Total tareas: {data['total']}")
+            print(f"  Completadas: {data['completed']}")
+            print(f"  Pendientes: {data['pending']}")
+            print(f"  Alta prioridad: {data['high_priority']}")
+            print(f"  Procrastinadas: {data['procrastinated']}")
+
 def main():
     manager = ProcrastinationManager()
     
@@ -111,8 +149,10 @@ def main():
         print("\n1. Añadir tarea")
         print("2. Listar todas las tareas")
         print("3. Listar por prioridad")
-        print("4. Registrar progreso")
-        print("5. Salir")
+        print("4. Listar por categoría")
+        print("5. Ver estadísticas por categoría")
+        print("6. Registrar progreso")
+        print("7. Salir")
         
         choice = input("\nSeleccione una opción: ")
         
@@ -139,8 +179,26 @@ def main():
             else:
                 manager.list_tasks(sort_by_priority=True)
         elif choice == "4":
-            manager.update_task_progress()
+            categories = manager.category_manager.get_categories()
+            print("\nCategorías disponibles:")
+            for i, cat in enumerate(categories, 1):
+                print(f"{i}. {cat}")
+            try:
+                cat_choice = int(input("\nSeleccione una categoría: ")) - 1
+                if 0 <= cat_choice < len(categories):
+                    filtered_tasks = [t for t in manager.tasks if t.category == categories[cat_choice]]
+                    if not filtered_tasks:
+                        print(f"\nNo hay tareas en esta categoría.")
+                    else:
+                        for task in filtered_tasks:
+                            print(f"\n-> {task.name} - {task.description}")
+            except ValueError:
+                print("Selección inválida")
         elif choice == "5":
+            manager.show_category_stats()
+        elif choice == "6":
+            manager.update_task_progress()
+        elif choice == "7":
             break
         
         input("\nPresione Enter para continuar...")

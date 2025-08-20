@@ -17,11 +17,12 @@ class Priority(Enum):
         return priority_map.get(priority_str.lower(), Priority.MEDIA)
 
 class Task:
-    def __init__(self, name, description, deadline, priority=Priority.MEDIA):
+    def __init__(self, name, description, deadline, priority=Priority.MEDIA, category="General"):
         self.name = name
         self.description = description
         self.deadline = deadline
         self.priority = priority
+        self.category = category
         self.last_progress = None
         self.completed = False
 
@@ -32,6 +33,7 @@ class Task:
             'description': self.description,
             'deadline': self.deadline,
             'priority': self.priority.name,
+            'category': self.category,
             'last_progress': self.last_progress.isoformat() if self.last_progress else None,
             'completed': self.completed
         }
@@ -43,7 +45,8 @@ class Task:
             data['name'], 
             data['description'], 
             data['deadline'],
-            Priority.from_string(data.get('priority', 'MEDIA'))
+            Priority.from_string(data.get('priority', 'MEDIA')),
+            data.get('category', 'General')
         )
         task.last_progress = datetime.fromisoformat(data['last_progress']) if data['last_progress'] else None
         task.completed = data['completed']
