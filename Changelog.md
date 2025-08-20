@@ -1,6 +1,10 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.2.2] - 2025-08-20
+### Añadido
+- Nueva organizacion de carpetas para el codigo
+
 ## [1.2.1] - 2025-08-19
 ### Añadido
 - Nueva funcionalidad para marcar tareas como completadas
