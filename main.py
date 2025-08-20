@@ -139,6 +139,36 @@ class ProcrastinationManager:
             print(f"  Alta prioridad: {data['high_priority']}")
             print(f"  Procrastinadas: {data['procrastinated']}")
 
+    def complete_task(self):
+        """Marca una tarea como completada"""
+        if not self.tasks:
+            print(f"{Fore.YELLOW}No hay tareas para completar.{Style.RESET_ALL}")
+            return
+
+        print("\nTareas pendientes:")
+        # Mostrar solo tareas no completadas
+        pending_tasks = [task for task in self.tasks if not task.completed]
+        
+        if not pending_tasks:
+            print(f"{Fore.YELLOW}No hay tareas pendientes para completar.{Style.RESET_ALL}")
+            return
+
+        for i, task in enumerate(pending_tasks, 1):
+            print(f"{i}. {task.name} ({task.category}) - {task.priority.name}")
+
+        try:
+            task_num = int(input("\nSeleccione el número de la tarea a completar: ")) - 1
+            if 0 <= task_num < len(pending_tasks):
+                task = pending_tasks[task_num]
+                task.completed = True
+                task.last_progress = datetime.now()
+                self.storage.save_tasks(self.tasks)
+                print(f"{Fore.GREEN}¡Tarea '{task.name}' marcada como completada!{Style.RESET_ALL}")
+            else:
+                print(f"{Fore.RED}Error: Número de tarea inválido{Style.RESET_ALL}")
+        except ValueError:
+            print(f"{Fore.RED}Error: Por favor ingrese un número válido{Style.RESET_ALL}")
+
 def main():
     manager = ProcrastinationManager()
     
@@ -152,7 +182,8 @@ def main():
         print("4. Listar por categoría")
         print("5. Ver estadísticas por categoría")
         print("6. Registrar progreso")
-        print("7. Salir")
+        print("7. Completar tarea")  # Nueva opción
+        print("8. Salir")
         
         choice = input("\nSeleccione una opción: ")
         
@@ -199,8 +230,10 @@ def main():
         elif choice == "6":
             manager.update_task_progress()
         elif choice == "7":
+            manager.complete_task()
+        elif choice == "8":
             break
-        
+            
         input("\nPresione Enter para continuar...")
 
 if __name__ == "__main__":

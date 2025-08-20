@@ -1,6 +1,14 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.2.1] - 2025-08-19
+### Añadido
+- Nueva funcionalidad para marcar tareas como completadas
+  - Opción dedicada en el menú principal
+  - Lista filtrada de tareas pendientes
+  - Confirmación visual al completar una tarea
+  - Actualización automática del último progreso al completar
+
 ## [1.2.0] - 2025-08-19
 ### Añadido
 - Sistema de categorización de tareas
