@@ -1,11 +1,11 @@
 [
     {
-        "name": "ewqwe",
-        "description": "qewqw",
+        "name": "Lavar Platos",
+        "description": "Lavar los platos que estan en la cocina antes de que llegue mi mama",
         "deadline": "2025-08-23T00:00:00",
-        "priority": "BAJA",
-        "progress": 50,
-        "last_update": "2025-08-23T17:45:44.418664",
+        "priority": "ALTA",
+        "progress": 0,
+        "last_update": "2025-08-23T18:00:54.242443",
         "category": "General",
         "completed": false
     }

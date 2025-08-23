@@ -1,8 +1,14 @@
+import os
+import sys
 from datetime import datetime, timedelta
-from .task import Task, Priority
-from .storage import Storage
-from .category_manager import CategoryManager
-from .ui import ConsoleUI
+
+# Añadir el directorio raíz del proyecto al sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from src.task import Task, Priority
+from src.storage import Storage
+from src.category_manager import CategoryManager
+from src.ui import ConsoleUI
 
 class ProcrastinationManager:
     def __init__(self):

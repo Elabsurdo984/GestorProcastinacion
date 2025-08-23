@@ -1,6 +1,6 @@
 from datetime import datetime
 from colorama import Fore, Style
-from .task import Priority
+from src.task import Priority
 
 class ConsoleUI:
     def __init__(self, manager):
