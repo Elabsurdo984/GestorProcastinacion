@@ -5,6 +5,7 @@ Una herramienta simple pero efectiva para gestionar tareas y combatir la procras
 ## 🎯 Características principales
 
 - Gestión de tareas con:
+  - Añadir, editar y eliminar tareas
   - Nombre y descripción
   - Fecha límite
   - Sistema de prioridades (Alta, Media, Baja)
@@ -27,7 +28,7 @@ cd GestorProcastinacion
 ```
 4. Instala las dependencias necesarias:
 ```bash
-pip install colorama
+pip install -r requirements.txt
 ```
 
 ## 💻 Uso
@@ -35,15 +36,20 @@ pip install colorama
 Ejecuta el programa con:
 
 ```bash
-python main.py
+python -m src.main
 ```
 
 ### Menú principal:
 1. Añadir tarea
 2. Listar todas las tareas
 3. Listar por prioridad
-4. Registrar progreso
-5. Salir
+4. Listar por categoría
+5. Ver estadísticas por categoría
+6. Registrar progreso
+7. Completar tarea
+8. Editar tarea
+9. Eliminar tarea
+10. Salir
 
 ### Sistema de prioridades:
 - **Alta**: 🔴 Tareas críticas que requieren atención inmediata
@@ -62,7 +68,8 @@ python main.py
 GestorProcastinacion/
 │
 ├── src/
-│   ├── main.py         # Punto de entrada y lógica principal
+│   ├── main.py         # Lógica de negocio principal
+│   ├── ui.py           # Interfaz de usuario de consola
 │   ├── task.py         # Clase Task y enum Priority
 │   ├── storage.py      # Manejo de persistencia de datos
 │   └── category_manager.py # Gestión de categorías

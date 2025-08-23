@@ -1,6 +1,16 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.3.0] - 2025-08-23
+### Añadido
+- Funcionalidad para editar tareas existentes.
+- Funcionalidad para eliminar tareas.
+
+### Modificado
+- Refactorización mayor: separada la lógica de negocio de la interfaz de usuario.
+  - Creada la clase `ConsoleUI` en `src/ui.py` para manejar todas las interacciones con el usuario.
+  - `ProcrastinationManager` ahora se enfoca exclusivamente en la lógica de negocio.
+
 ## [1.2.5] - 2025-08-23
 ### Añadido
 - `requirements.txt` para gestionar las dependencias del proyecto.
