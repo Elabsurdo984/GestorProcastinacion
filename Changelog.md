@@ -1,6 +1,26 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.4.0] - 2025-08-23
+### Mejorado
+- **Calidad del Código General**:
+  - Añadidas anotaciones de tipo (`Type Hints`) a todos los métodos y atributos para mejorar la legibilidad, mantenibilidad y detección de errores estáticos.
+  - Refactorización de la lógica interna para mayor claridad y eficiencia.
+- **`src/main.py`**:
+  - Centralizada la lógica de mapeo de prioridad en una constante de clase (`PRIORITY_MAP`).
+  - Extraída la validación de fechas límite a un método privado (`_validate_deadline`).
+  - Simplificada la lógica de `check_procrastination` para una mejor identificación de tareas procrastinadas.
+- **`src/category_manager.py`**:
+  - Refactorizado el método `get_category_stats` para una lógica más clara y concisa.
+- **`src/storage.py`**:
+  - Añadidos valores por defecto en `_create_task_from_dict` para mayor robustez al cargar datos.
+- **`src/task.py`**:
+  - Añadidos docstrings a los atributos de la clase para una mejor documentación.
+- **`src/ui.py`**:
+  - Centralizados los mensajes de éxito, error y advertencia en métodos auxiliares (`_print_success`, `_print_error`, `_print_warning`).
+  - Refactorizada la lógica de selección de prioridad y categoría en métodos privados (`_get_priority_choice`, `_get_category_choice`) para reducir la duplicación de código y mejorar la modularidad.
+  - Utilización de la constante `PRIORITY_MAP` del `ProcrastinationManager`.
+
 ## [1.3.1] - 2025-08-23
 ### Añadido
 - Nuevos tests unitarios para mejorar la cobertura de código en:

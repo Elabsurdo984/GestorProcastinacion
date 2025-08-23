@@ -29,14 +29,22 @@ class Task:
         if deadline.date() < datetime.now().date():
             raise ValueError("La fecha límite no puede estar en el pasado")
 
-        self.name = name
-        self.description = description
-        self.deadline = deadline
-        self.priority = priority
+        self.name: str = name
+        """Nombre de la tarea."""
+        self.description: str = description
+        """Descripción detallada de la tarea."""
+        self.deadline: datetime = deadline
+        """Fecha límite para completar la tarea."""
+        self.priority: Priority = priority
+        """Nivel de prioridad de la tarea."""
         self.progress: int = 0
+        """Porcentaje de progreso de la tarea (0-100)."""
         self.last_update: datetime = datetime.now()
-        self.category = category
+        """Marca de tiempo de la última actualización de la tarea."""
+        self.category: str = category
+        """Categoría a la que pertenece la tarea."""
         self.completed: bool = False
+        """Indica si la tarea ha sido completada."""
 
     def update_progress(self, new_progress: int) -> None:
         """
@@ -60,5 +68,5 @@ class Task:
         Returns:
             bool: True si han pasado más de 24 horas sin actualización
         """
-        time_since_update = datetime.now() - self.last_update
+        time_since_update: timedelta = datetime.now() - self.last_update
         return time_since_update > timedelta(hours=24)

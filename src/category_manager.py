@@ -1,7 +1,8 @@
 """Módulo para la gestión de categorías de tareas."""
-from typing import Set
+from typing import Set, Dict, Any, List
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
+from src.task import Task, Priority # Importar Task y Priority para type hints
 
 class CategoryManager:
     """Clase que gestiona las categorías disponibles para las tareas."""
@@ -49,9 +50,17 @@ class CategoryManager:
         """
         return self.categories.copy()
 
-    def get_category_stats(self, tasks):
-        """Genera estadísticas por categoría"""
-        stats = defaultdict(lambda: {
+    def get_category_stats(self, tasks: List[Task]) -> Dict[str, Dict[str, Any]]:
+        """
+        Genera estadísticas por categoría.
+
+        Args:
+            tasks: Lista de tareas para analizar.
+
+        Returns:
+            Dict[str, Dict[str, Any]]: Diccionario con estadísticas por categoría.
+        """
+        stats: Dict[str, Dict[str, Any]] = defaultdict(lambda: {
             'total': 0,
             'completed': 0,
             'pending': 0,
@@ -64,9 +73,9 @@ class CategoryManager:
             stats[cat]['total'] += 1
             stats[cat]['completed'] += 1 if task.completed else 0
             stats[cat]['pending'] += 0 if task.completed else 1
-            stats[cat]['high_priority'] += 1 if task.priority.name == 'ALTA' else 0
+            stats[cat]['high_priority'] += 1 if task.priority == Priority.ALTA else 0
             
-            if task.last_update and not task.completed: # Solo tareas pendientes pueden ser procrastinadas
+            if task.last_update and not task.completed:
                 time_since_progress = datetime.now() - task.last_update
                 if time_since_progress.days >= 1:
                     stats[cat]['procrastinated'] += 1
