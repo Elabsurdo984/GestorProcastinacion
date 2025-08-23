@@ -1,7 +1,7 @@
 """Módulo para la persistencia de datos de tareas."""
 import json
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from .task import Task, Priority
 
 class Storage:
@@ -25,8 +25,8 @@ class Storage:
         """
         try:
             with open(self.filename, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                tasks = []
+                data: List[Dict[str, Any]] = json.load(file)
+                tasks: List[Task] = []
                 for task_data in data:
                     task = self._create_task_from_dict(task_data)
                     tasks.append(task)
@@ -62,8 +62,8 @@ class Storage:
             Priority[data['priority']],
             data.get('category', 'General')
         )
-        task.progress = data['progress']
-        task.last_update = datetime.fromisoformat(data['last_update'])
+        task.progress = data.get('progress', 0)
+        task.last_update = datetime.fromisoformat(data.get('last_update', datetime.now().isoformat()))
         task.completed = data.get('completed', False)
         return task
 
@@ -97,7 +97,7 @@ class Storage:
         Args:
             tasks: Lista de tareas a guardar
         """
-        data = []
+        data: List[Dict[str, Any]] = []
         for task in tasks:
             task_dict = {
                 'name': task.name,
