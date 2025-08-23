@@ -1,6 +1,16 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.2.4] - 2025-08-23
+### Corregido
+- Solucionado `AttributeError` en `Storage` al implementar el método `update_task`.
+- Corregido `ImportError` ajustando las importaciones a relativas para la estructura del paquete.
+- Solucionado `TypeError` en la creación de tareas al no aceptar la categoría.
+- El programa ya no se cierra al introducir una fecha límite en el pasado.
+
+### Añadido
+- Alertas de procrastinación ahora son visibles inmediatamente para demostración.
+
 ## [1.2.3] - 2025-08-20
 ### Añadido
 - Sistema completo de pruebas unitarias y de integración

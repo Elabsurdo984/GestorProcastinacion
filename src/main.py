@@ -1,29 +1,36 @@
 from datetime import datetime, timedelta
 import os
 import sys
-from task import Task, Priority
-from storage import TaskStorage
+from .task import Task, Priority
+from .storage import Storage
 from colorama import init, Fore, Style
-from category_manager import CategoryManager
+from .category_manager import CategoryManager
 
 init()  # Inicializar colorama
 
 class ProcrastinationManager:
     def __init__(self):
-        self.storage = TaskStorage()
+        self.storage = Storage()
         self.tasks = self.storage.load_tasks()
         self.category_manager = CategoryManager()
-        self.procrastination_threshold = timedelta(hours=24)
+        # Se reduce el umbral para demostración
+        self.procrastination_threshold = timedelta(seconds=5)
         
         # Cargar categorías existentes de las tareas
         for task in self.tasks:
-            self.category_manager.add_category(task.category)
+            if task.category not in self.category_manager.get_categories():
+                self.category_manager.add_category(task.category)
 
     def add_task(self):
         """Añade una nueva tarea con categoría"""
         name = input("Nombre de la tarea: ")
         description = input("Descripción: ")
-        deadline = input("Fecha límite (YYYY-MM-DD): ")
+        deadline_str = input("Fecha límite (YYYY-MM-DD): ")
+        try:
+            deadline = datetime.strptime(deadline_str, "%Y-%m-%d")
+        except ValueError:
+            print(f"{Fore.RED}Formato de fecha inválido. Use YYYY-MM-DD.{Style.RESET_ALL}")
+            return
         
         # Mostrar prioridades
         print("\nPrioridad:")
@@ -33,7 +40,7 @@ class ProcrastinationManager:
         priority_choice = input("Seleccione la prioridad (1-3) [2]: ").strip() or "2"
         
         # Mostrar categorías
-        categories = self.category_manager.get_categories()
+        categories = list(self.category_manager.get_categories())
         print("\nCategorías disponibles:")
         for i, cat in enumerate(categories, 1):
             print(f"{i}. {cat}")
@@ -53,10 +60,14 @@ class ProcrastinationManager:
         priority_map = {"1": Priority.BAJA, "2": Priority.MEDIA, "3": Priority.ALTA}
         priority = priority_map.get(priority_choice, Priority.MEDIA)
         
-        task = Task(name, description, deadline, priority, category)
-        self.tasks.append(task)
-        self.storage.save_tasks(self.tasks)
-        print(f"{Fore.GREEN}¡Tarea añadida con éxito!{Style.RESET_ALL}")
+        try:
+            task = Task(name, description, deadline, priority, category)
+            self.tasks.append(task)
+            self.storage.save_tasks(self.tasks)
+            print(f"{Fore.GREEN}¡Tarea añadida con éxito!{Style.RESET_ALL}")
+        except ValueError as e:
+            print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
+            print("Inténtelo de nuevo.")
 
     def list_tasks(self, sort_by_priority=True):
         """Muestra todas las tareas, opcionalmente ordenadas por prioridad"""
@@ -74,7 +85,7 @@ class ProcrastinationManager:
             }
             color = priority_colors[task.priority]
             status = "Completada" if task.completed else "Pendiente"
-            last_progress = task.last_progress.strftime("%Y-%m-%d %H:%M") if task.last_progress else "Sin progreso"
+            last_progress = task.last_update.strftime("%Y-%m-%d %H:%M") if task.last_update else "Sin progreso"
             
             print(f"\n{color}{i}. {task.name} [{task.priority.name}]{Style.RESET_ALL}")
             print(f"   Descripción: {task.description}")
@@ -92,8 +103,8 @@ class ProcrastinationManager:
         for priority in [Priority.ALTA, Priority.MEDIA, Priority.BAJA]:
             priority_tasks = self.get_priority_tasks(priority)
             for task in priority_tasks:
-                if not task.last_progress or \
-                   (now - task.last_progress) > self.procrastination_threshold:
+                if not task.last_update or \
+                   (now - task.last_update) > self.procrastination_threshold:
                     print(f"\n{Fore.RED}¡Alerta de procrastinación! - Tarea {priority.name}:{Style.RESET_ALL}")
                     print(f"-> {task.name}")  # Cambiado emoji por ->
                     print(">> Mini-reto: Dedica solo 5 minutos a esta tarea ahora.")
@@ -113,13 +124,14 @@ class ProcrastinationManager:
             task_num = int(input("\nSeleccione el número de la tarea: ")) - 1
             if 0 <= task_num < len(self.tasks):
                 task = self.tasks[task_num]
-                task.update_progress()
+                new_progress = int(input(f"Ingrese el nuevo progreso para '{task.name}' (0-100): "))
+                task.update_progress(new_progress)
                 self.storage.save_tasks(self.tasks)
                 print(f"{Fore.GREEN}¡Progreso registrado con éxito!{Style.RESET_ALL}")
                 
                 # Mostrar tiempo desde el último progreso
-                if task.last_progress:
-                    elapsed = datetime.now() - task.last_progress
+                if task.last_update:
+                    elapsed = datetime.now() - task.last_update
                     print(f"Tiempo desde el último progreso: {elapsed.days} días, {elapsed.seconds//3600} horas")
             else:
                 print(f"{Fore.RED}Error: Número de tarea inválido{Style.RESET_ALL}")
@@ -161,7 +173,7 @@ class ProcrastinationManager:
             if 0 <= task_num < len(pending_tasks):
                 task = pending_tasks[task_num]
                 task.completed = True
-                task.last_progress = datetime.now()
+                task.last_update = datetime.now()
                 self.storage.save_tasks(self.tasks)
                 print(f"{Fore.GREEN}¡Tarea '{task.name}' marcada como completada!{Style.RESET_ALL}")
             else:
@@ -210,7 +222,7 @@ def main():
             else:
                 manager.list_tasks(sort_by_priority=True)
         elif choice == "4":
-            categories = manager.category_manager.get_categories()
+            categories = list(manager.category_manager.get_categories())
             print("\nCategorías disponibles:")
             for i, cat in enumerate(categories, 1):
                 print(f"{i}. {cat}")

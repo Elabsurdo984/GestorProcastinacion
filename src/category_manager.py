@@ -66,8 +66,8 @@ class CategoryManager:
             stats[cat]['pending'] += 0 if task.completed else 1
             stats[cat]['high_priority'] += 1 if task.priority.name == 'ALTA' else 0
             
-            if task.last_progress:
-                time_since_progress = datetime.now() - task.last_progress
+            if task.last_update:
+                time_since_progress = datetime.now() - task.last_update
                 if time_since_progress.days >= 1:
                     stats[cat]['procrastinated'] += 1
 

@@ -1,0 +1,42 @@
+[
+    {
+        "name": "g",
+        "description": "g",
+        "deadline": "2025-08-23T00:00:00",
+        "priority": "BAJA",
+        "progress": 0,
+        "last_update": "2025-08-23T17:18:06.729708",
+        "category": "General",
+        "completed": true
+    },
+    {
+        "name": "ge",
+        "description": "ge",
+        "deadline": "2025-08-23T00:00:00",
+        "priority": "MEDIA",
+        "progress": 0,
+        "last_update": "2025-08-23T17:18:17.434427",
+        "category": "Tecnologico",
+        "completed": true
+    },
+    {
+        "name": "he",
+        "description": "ge",
+        "deadline": "2025-08-23T00:00:00",
+        "priority": "ALTA",
+        "progress": 0,
+        "last_update": "2025-08-23T17:12:49.352666",
+        "category": "General",
+        "completed": true
+    },
+    {
+        "name": "he",
+        "description": "jj",
+        "deadline": "2025-08-23T00:00:00",
+        "priority": "ALTA",
+        "progress": 0,
+        "last_update": "2025-08-23T17:18:11.817779",
+        "category": "General",
+        "completed": true
+    }
+]

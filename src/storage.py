@@ -59,11 +59,36 @@ class Storage:
             data['name'],
             data['description'],
             datetime.fromisoformat(data['deadline']),
-            Priority[data['priority']]
+            Priority[data['priority']],
+            data.get('category', 'General')
         )
         task.progress = data['progress']
         task.last_update = datetime.fromisoformat(data['last_update'])
+        task.completed = data.get('completed', False)
         return task
+
+    def update_task(self, updated_task: Task) -> None:
+        """
+        Actualiza una tarea existente.
+
+        Args:
+            updated_task: Tarea con la información actualizada
+        """
+        tasks = self.load_tasks()
+        for i, task in enumerate(tasks):
+            if task.name == updated_task.name:
+                tasks[i] = updated_task
+                break
+        self._save_to_file(tasks)
+
+    def save_tasks(self, tasks: List[Task]) -> None:
+        """
+        Guarda todas las tareas en el archivo.
+
+        Args:
+            tasks: Lista de tareas a guardar
+        """
+        self._save_to_file(tasks)
 
     def _save_to_file(self, tasks: List[Task]) -> None:
         """
@@ -80,7 +105,9 @@ class Storage:
                 'deadline': task.deadline.isoformat(),
                 'priority': task.priority.name,
                 'progress': task.progress,
-                'last_update': task.last_update.isoformat()
+                'last_update': task.last_update.isoformat(),
+                'category': task.category,
+                'completed': task.completed
             }
             data.append(task_dict)
 

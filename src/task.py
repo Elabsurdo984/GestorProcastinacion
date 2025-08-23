@@ -12,7 +12,7 @@ class Priority(Enum):
 class Task:
     """Clase que representa una tarea con sus atributos y métodos."""
 
-    def __init__(self, name: str, description: str, deadline: datetime, priority: Priority):
+    def __init__(self, name: str, description: str, deadline: datetime, priority: Priority, category: str = "General"):
         """
         Inicializa una nueva tarea.
 
@@ -21,6 +21,7 @@ class Task:
             description: Descripción detallada
             deadline: Fecha límite
             priority: Nivel de prioridad
+            category: Categoría de la tarea
 
         Raises:
             ValueError: Si la fecha límite está en el pasado
@@ -34,7 +35,8 @@ class Task:
         self.priority = priority
         self.progress: int = 0
         self.last_update: datetime = datetime.now()
-        self.category: str = "General"
+        self.category = category
+        self.completed: bool = False
 
     def update_progress(self, new_progress: int) -> None:
         """
