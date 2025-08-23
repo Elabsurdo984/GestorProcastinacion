@@ -23,3 +23,9 @@ class TestTask(unittest.TestCase):
     def test_detectar_procrastinacion(self):
         self.task.last_update = datetime.now() - timedelta(hours=25)
         self.assertTrue(self.task.is_procrastinating())
+
+    def test_actualizar_progreso_invalido(self):
+        with self.assertRaises(ValueError):
+            self.task.update_progress(101)
+        with self.assertRaises(ValueError):
+            self.task.update_progress(-1)

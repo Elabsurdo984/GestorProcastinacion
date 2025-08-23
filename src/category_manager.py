@@ -66,7 +66,7 @@ class CategoryManager:
             stats[cat]['pending'] += 0 if task.completed else 1
             stats[cat]['high_priority'] += 1 if task.priority.name == 'ALTA' else 0
             
-            if task.last_update:
+            if task.last_update and not task.completed: # Solo tareas pendientes pueden ser procrastinadas
                 time_since_progress = datetime.now() - task.last_update
                 if time_since_progress.days >= 1:
                     stats[cat]['procrastinated'] += 1

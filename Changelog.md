@@ -1,6 +1,19 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.3.1] - 2025-08-23
+### Añadido
+- Nuevos tests unitarios para mejorar la cobertura de código en:
+  - `src/category_manager.py` (cubriendo casos de eliminación de categorías inexistentes y estadísticas)
+  - `src/storage.py` (cubriendo la actualización de tareas inexistentes)
+  - `src/task.py` (cubriendo la validación de progreso inválido)
+
+### Corregido
+- Lógica en `src/category_manager.py` para evitar que las tareas completadas se marquen como "procrastinadas" en las estadísticas.
+
+### Mejorado
+- Cobertura de tests unitarios del proyecto, alcanzando un 99%.
+
 ## [1.3.0] - 2025-08-23
 ### Añadido
 - Funcionalidad para editar tareas existentes.

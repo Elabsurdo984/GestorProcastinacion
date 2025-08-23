@@ -30,3 +30,14 @@ class TestStorage(unittest.TestCase):
         self.storage.update_task(tarea)
         tareas = self.storage.load_tasks()
         self.assertEqual(tareas[0].progress, 75)
+
+    def test_actualizar_tarea_inexistente(self):
+        tarea_existente = Task("Existente", "Desc", self.future_date, Priority.MEDIA)
+        self.storage.save_task(tarea_existente)
+
+        tarea_inexistente = Task("Inexistente", "Desc", self.future_date, Priority.MEDIA)
+        self.storage.update_task(tarea_inexistente)
+
+        tareas = self.storage.load_tasks()
+        self.assertEqual(len(tareas), 1)
+        self.assertEqual(tareas[0].name, "Existente")
