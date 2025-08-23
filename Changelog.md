@@ -1,6 +1,14 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.2.5] - 2025-08-23
+### Añadido
+- `requirements.txt` para gestionar las dependencias del proyecto.
+- Flujo de trabajo de Integración Continua (CI) con GitHub Actions para ejecutar pruebas automáticamente.
+
+### Modificado
+- El flujo de trabajo de CI ahora instala las dependencias desde `requirements.txt`.
+
 ## [1.2.4] - 2025-08-23
 ### Corregido
 - Solucionado `AttributeError` en `Storage` al implementar el método `update_task`.
