@@ -108,7 +108,15 @@ GestorProcastinacion/
 
 ## 🤝 Contribuciones
 
-Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir los cambios que te gustaría hacer.
+Las contribuciones son bienvenidas. Para asegurar la calidad del código y la estabilidad del proyecto, por favor, ten en cuenta lo siguiente al enviar un Pull Request:
+
+1.  **Abre un Issue**: Antes de empezar a trabajar en una nueva característica o corrección de errores, por favor, abre un issue para discutir los cambios que te gustaría hacer. Esto nos ayuda a coordinar el trabajo y evitar duplicidades.
+2.  **Estilo de Código (Pylint)**: Asegúrate de que tu código cumple con los estándares de calidad definidos. El CI ejecutará Pylint y el Pull Request no será aprobado si el score es inferior a **8.20**. Puedes ejecutar Pylint localmente con `pylint src/**/*.py`.
+3.  **Cobertura de Tests**: Todos los cambios deben estar cubiertos por tests unitarios y/o de integración. El CI verificará que la cobertura de código no sea inferior al **90%**. Puedes ejecutar los tests y verificar la cobertura localmente con `coverage run -m unittest discover -v` y `coverage report -m`.
+4.  **Mensajes de Commit Claros**: Utiliza mensajes de commit descriptivos y en español.
+5.  **Una Característica por PR**: Cada Pull Request debe enfocarse en una única característica o corrección de error.
+
+Gracias por tu colaboración.
 
 ## 📝 Licencia
 
