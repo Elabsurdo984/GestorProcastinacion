@@ -2,7 +2,7 @@
 from typing import Set, Dict, Any, List
 from collections import defaultdict
 from datetime import datetime, timedelta
-from src.task import Task, Priority # Importar Task y Priority para type hints
+from src.models.task import Task, Priority # Importar Task y Priority para type hints
 
 class CategoryManager:
     """Clase que gestiona las categorías disponibles para las tareas."""

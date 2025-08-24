@@ -2,8 +2,8 @@ import os
 from datetime import datetime
 from typing import List, Any, Dict, Optional
 from colorama import Fore, Style
-from src.task import Task, Priority
-from src.main import ProcrastinationManager # Importar ProcrastinationManager para type hints
+from src.models.task import Task, Priority
+from src.core.manager import ProcrastinationManager
 
 class ConsoleUI:
     def __init__(self, manager: ProcrastinationManager) -> None:
@@ -120,7 +120,7 @@ class ConsoleUI:
             return
 
         for i, task in enumerate(tasks, 1):
-            priority_colors: Dict[Priority, Fore] = {
+            priority_colors: Dict[Priority] = {
                 Priority.ALTA: Fore.RED,
                 Priority.MEDIA: Fore.YELLOW,
                 Priority.BAJA: Fore.GREEN

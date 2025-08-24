@@ -1,6 +1,20 @@
 # Changelog
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [1.5.0] - 2025-08-23
+### Modificado
+- **Refactorización de Arquitectura**:
+  - Reorganización completa de la estructura del proyecto para mejorar la modularidad y la mantenibilidad.
+  - Creación de nuevos módulos (`core`, `models`, `data`, `ui`) dentro de `src/`.
+  - Movimiento de clases y enumeraciones a sus respectivos módulos:
+    - `ProcrastinationManager` a `src/core/manager.py`.
+    - `Task` y `Priority` a `src/models/task.py`.
+    - `Storage` a `src/data/storage.py`.
+    - `CategoryManager` a `src/data/category_manager.py`.
+    - `ConsoleUI` a `src/ui/console.py`.
+  - Actualización de todas las importaciones para reflejar la nueva estructura.
+  - Eliminación de archivos antiguos (`src/task.py`, `src/storage.py`, `src/category_manager.py`, `src/ui.py`).
+
 ## [1.4.0] - 2025-08-23
 ### Mejorado
 - **Calidad del Código General**:

@@ -68,11 +68,21 @@ python -m src.main
 GestorProcastinacion/
 │
 ├── src/
-│   ├── main.py         # Lógica de negocio principal
-│   ├── ui.py           # Interfaz de usuario de consola
-│   ├── task.py         # Clase Task y enum Priority
-│   ├── storage.py      # Manejo de persistencia de datos
-│   └── category_manager.py # Gestión de categorías
+│   ├── __init__.py
+│   ├── main.py         # Punto de entrada de la aplicación
+│   ├── core/
+│   │   ├── __init__.py
+│   │   └── manager.py  # Lógica de negocio principal (ProcrastinationManager)
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── task.py     # Clases de modelos (Task, Priority)
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── storage.py  # Manejo de persistencia de datos (Storage)
+│   │   └── category_manager.py # Gestión de categorías (CategoryManager)
+│   └── ui/
+│       ├── __init__.py
+│       └── console.py  # Interfaz de usuario de consola (ConsoleUI)
 │
 ├── tests/
 │   ├── test_task.py           # Pruebas de tareas
@@ -105,9 +115,15 @@ Las contribuciones son bienvenidas. Por favor, abre un issue primero para discut
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## 📋 Versiones
-- v1.0.0: Versión inicial con funcionalidades básicas
-- v1.1.0: Añadido sistema de prioridades y mejoras visuales
-- v1.2.0: Sistema de categorización y estadísticas
-- v1.2.1: Funcionalidad para marcar tareas como completadas
-- v1.2.2: Nueva organización de carpetas
-- v1.2.3: Sistema completo de pruebas y validaciones
+- v1.5.0: Refactorización completa de la arquitectura del proyecto para mejorar la modularidad.
+- v1.4.0: Mejoras en la calidad del código y refactorización de la lógica interna.
+- v1.3.1: Añadidos nuevos tests unitarios y corregida lógica de procrastinación en estadísticas.
+- v1.3.0: Añadida funcionalidad para editar y eliminar tareas; refactorización de UI.
+- v1.2.5: Añadido `requirements.txt` y flujo de trabajo de CI con GitHub Actions.
+- v1.2.4: Corrección de errores de importación y atributos, y mejoras en alertas de procrastinación.
+- v1.2.3: Sistema completo de pruebas unitarias y de integración, y mejoras en validación de datos.
+- v1.2.2: Nueva organización de carpetas para el código.
+- v1.2.1: Nueva funcionalidad para marcar tareas como completadas.
+- v1.2.0: Sistema de categorización de tareas y estadísticas detalladas.
+- v1.1.0: Sistema de prioridades para tareas y mejoras en la interfaz de consola.
+- v1.0.0: Versión inicial con funcionalidades básicas.

@@ -2,7 +2,7 @@
 import json
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from .task import Task, Priority
+from src.models.task import Task, Priority
 
 class Storage:
     """Clase que maneja el almacenamiento persistente de tareas."""
