@@ -60,7 +60,8 @@ class Storage:
             data['description'],
             datetime.fromisoformat(data['deadline']),
             Priority[data['priority']],
-            data.get('category', 'General')
+            data.get('category', 'General'),
+            is_loading=True  # Pass is_loading=True when creating task from loaded data
         )
         task.progress = data.get('progress', 0)
         task.last_update = datetime.fromisoformat(data.get('last_update',

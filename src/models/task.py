@@ -13,7 +13,7 @@ class Task:
 
     # pylint: disable=too-many-instance-attributes,too-many-arguments,too-many-positional-arguments
     def __init__(self, name: str, description: str, deadline: datetime,
-                 priority: Priority, category: str = "General"):
+                 priority: Priority, category: str = "General", is_loading: bool = False):
         """
         Inicializa una nueva tarea.
 
@@ -23,11 +23,12 @@ class Task:
             deadline: Fecha límite
             priority: Nivel de prioridad
             category: Categoría de la tarea
+            is_loading: Indica si la tarea se está cargando desde el almacenamiento.
 
         Raises:
-            ValueError: Si la fecha límite está en el pasado
+            ValueError: Si la fecha límite está en el pasado y no se está cargando la tarea.
         """
-        if deadline.date() < datetime.now().date():
+        if not is_loading and deadline.date() < datetime.now().date():
             raise ValueError("La fecha límite no puede estar en el pasado")
 
         self.name: str = name
