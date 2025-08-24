@@ -2,8 +2,8 @@ import unittest
 import json
 import os
 from datetime import datetime, timedelta
-from src.storage import Storage
-from src.task import Task, Priority
+from src.data.storage import Storage
+from src.models.task import Task, Priority
 
 class TestStorage(unittest.TestCase):
     def setUp(self):

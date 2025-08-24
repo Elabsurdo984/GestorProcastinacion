@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timedelta
-from src.task import Task, Priority
+from src.models.task import Task, Priority
 
 class TestTask(unittest.TestCase):
     def setUp(self):

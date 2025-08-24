@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timedelta
-from src.category_manager import CategoryManager
-from src.task import Task, Priority
+from src.data.category_manager import CategoryManager
+from src.models.task import Task, Priority
 
 class TestCategoryManager(unittest.TestCase):
     def setUp(self):

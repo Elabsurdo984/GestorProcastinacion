@@ -1,8 +1,8 @@
 import unittest
 from datetime import datetime, timedelta
-from src.task import Task, Priority
-from src.storage import Storage
-from src.category_manager import CategoryManager
+from src.models.task import Task, Priority
+from src.data.storage import Storage
+from src.data.category_manager import CategoryManager
 
 class TestFullWorkflow(unittest.TestCase):
     def setUp(self):
