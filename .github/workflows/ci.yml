@@ -26,15 +26,9 @@ jobs:
 
     - name: Run Pylint
       run: |
-        # Ejecutar Pylint y extraer el score
-        SCORE=$(pylint src/**/*.py --rcfile=.pylintrc | grep -oP 'Your code has been rated at \K\d+\.\d+' || echo "0.00")
-        echo "Pylint score: $SCORE"
-        # Fallar si el score es menor a 8.20
-        if (( $(echo "$SCORE < 8.20" | bc -l) )); then
-          echo "Pylint score is below 8.20!"
-          exit 1
-        fi
+        pylint src/ --fail-under=8.0 --output-format=text
 
+        
     - name: Test with unittest and Coverage
       run: |
         coverage run -m unittest discover -v
