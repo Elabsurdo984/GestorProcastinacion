@@ -1,7 +1,6 @@
 """Módulo para la gestión de tareas individuales."""
 from enum import Enum
 from datetime import datetime, timedelta
-from typing import Optional
 
 class Priority(Enum):
     """Enumeración para los niveles de prioridad de las tareas."""
@@ -12,7 +11,9 @@ class Priority(Enum):
 class Task:
     """Clase que representa una tarea con sus atributos y métodos."""
 
-    def __init__(self, name: str, description: str, deadline: datetime, priority: Priority, category: str = "General"):
+    # pylint: disable=too-many-instance-attributes,too-many-arguments,too-many-positional-arguments
+    def __init__(self, name: str, description: str, deadline: datetime,
+                 priority: Priority, category: str = "General"):
         """
         Inicializa una nueva tarea.
 

@@ -20,7 +20,7 @@ Una herramienta simple pero efectiva para gestionar tareas y combatir la procras
 1. Asegúrate de tener Python 3.13 instalado
 2. Clona este repositorio:
 ```bash
-git clone https://github.com/tuusuario/GestorProcastinacion
+git clone https://github.com/Elabsurdo984/GestorProcastinacion
 ```
 3. Navega al directorio del proyecto:
 ```bash

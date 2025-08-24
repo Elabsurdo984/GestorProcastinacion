@@ -1,7 +1,7 @@
 """Módulo para la persistencia de datos de tareas."""
 import json
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 from src.models.task import Task, Priority
 
 class Storage:
@@ -63,7 +63,8 @@ class Storage:
             data.get('category', 'General')
         )
         task.progress = data.get('progress', 0)
-        task.last_update = datetime.fromisoformat(data.get('last_update', datetime.now().isoformat()))
+        task.last_update = datetime.fromisoformat(data.get('last_update',
+                                                           datetime.now().isoformat()))
         task.completed = data.get('completed', False)
         return task
 

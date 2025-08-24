@@ -1,7 +1,7 @@
 """Módulo para la gestión de categorías de tareas."""
 from typing import Set, Dict, Any, List
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime
 from src.models.task import Task, Priority # Importar Task y Priority para type hints
 
 class CategoryManager:
@@ -10,7 +10,7 @@ class CategoryManager:
     def __init__(self) -> None:
         """Inicializa el gestor de categorías con una categoría por defecto."""
         self.categories: Set[str] = {"General"}
-        
+
     def add_category(self, category_name: str) -> None:
         """
         Añade una nueva categoría.
@@ -24,7 +24,7 @@ class CategoryManager:
         if category_name in self.categories:
             raise ValueError(f"La categoría '{category_name}' ya existe")
         self.categories.add(category_name)
-        
+
     def remove_category(self, category_name: str) -> None:
         """
         Elimina una categoría existente.
@@ -40,7 +40,7 @@ class CategoryManager:
         if category_name not in self.categories:
             raise ValueError(f"La categoría '{category_name}' no existe")
         self.categories.remove(category_name)
-        
+
     def get_categories(self) -> Set[str]:
         """
         Obtiene todas las categorías disponibles.
@@ -74,7 +74,7 @@ class CategoryManager:
             stats[cat]['completed'] += 1 if task.completed else 0
             stats[cat]['pending'] += 0 if task.completed else 1
             stats[cat]['high_priority'] += 1 if task.priority == Priority.ALTA else 0
-            
+
             if task.last_update and not task.completed:
                 time_since_progress = datetime.now() - task.last_update
                 if time_since_progress.days >= 1:
